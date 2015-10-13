@@ -40,7 +40,6 @@ For more information, please see http://github.com/dirkriehle/wahlzeit and http:
 
 ### Deploy Wahlzeit to Google App Engine
 
-**tagging test**
 
 **Create a Google App Engine instance:**
   1. If you don't have one yet, create a Google account (required)
