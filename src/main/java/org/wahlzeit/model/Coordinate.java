@@ -1,9 +1,16 @@
+package org.wahlzeit.model;
+
 
 public interface Coordinate
 {
-	public Coordinate getDistance(Coordinate);
+	public Coordinate getDistance(Coordinate c);
 	
-	public getLatintudinalDistance(Coordinate);
+	public double getLatintudinalDistance(Coordinate c);
 	
-	public getLongitudinalDistance(Coordinate);asdf
+	public double getLongitudinalDistance(Coordinate c);
+
+	public double getLatitude();
+	public void setLatitude(double latitude);
+	public double getLongitude();
+	public void setLongitude(double longitude);
 }
