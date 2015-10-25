@@ -3,7 +3,7 @@ package org.wahlzeit.model;
 /**
  * @author robin
  * 
- *         Ein Interface, das sowohl von Coordinate und NullCoordinate
+ *         Ein Interface (nach dem refactoring jetzt eine Abstrakte Klasse), das sowohl von Coordinate und NullCoordinate
  *         implementiert wird, um damit beiden das gleiche
  *         Schnittstellenverhalten zu geben, damit polymorphes internes
  *         Verhalten ermoeglicht wird!
