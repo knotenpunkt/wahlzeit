@@ -32,6 +32,7 @@ import org.wahlzeit.services.EmailAddress;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.ObjectManager;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -122,7 +123,13 @@ public class Photo extends DataObject {
      */
     protected String ending = "jpg";
 
-    protected AbstractCoordinate abstrCoordinate = new NullCoordinate();
+    
+    /**
+     * wuerde mich interessieren, warum hier kein Interface akzeptiert wird?... wegen {@link Serializable} ????
+     * 
+     * habs noch schnell auf ne abstrakte Klasse refactored
+     */
+    protected AbstractCoordinate abstrCoordinate;// = new NullCoordinate();
 
     /**
      *
@@ -151,11 +158,12 @@ public class Photo extends DataObject {
     }
 
     public AbstractCoordinate getAbstrCoordinate() {
-	return abstrCoordinate;
+	//return abstrCoordinate;
+	return null;
     }
 
     public void setAbstrCoordinate(AbstractCoordinate abstrCoordinate) {
-	this.abstrCoordinate = (abstrCoordinate != null) ? abstrCoordinate : new NullCoordinate();
+	//this.abstrCoordinate = (abstrCoordinate != null) ? abstrCoordinate : new NullCoordinate();
 	incWriteCount();
 
     }

@@ -9,7 +9,7 @@ package org.wahlzeit.model;
  *         Verhalten ermoeglicht wird!
  *
  */
-public interface AbstractCoordinate {
+abstract class AbstractCoordinate {
     /**
      * @param
      * @return
@@ -18,7 +18,7 @@ public interface AbstractCoordinate {
      *         return the result packed into a {@link AbstractCoordinate} Object
      * 
      */
-    public AbstractCoordinate getDistance(AbstractCoordinate c);
+    public abstract AbstractCoordinate getDistance(AbstractCoordinate c);
 
     /**
      * @param c
@@ -27,7 +27,7 @@ public interface AbstractCoordinate {
      * 	calculate the absolute Difference of LatitudinalDistance and the
      *         parmam c
      */
-    public double getLatintudinalDistance(AbstractCoordinate c);
+    public abstract double getLatintudinalDistance(AbstractCoordinate c);
 
     /**
      * @param c
@@ -37,33 +37,33 @@ public interface AbstractCoordinate {
      *         the parmam c
      * 
      */
-    public double getLongitudinalDistance(AbstractCoordinate c);
+    public abstract double getLongitudinalDistance(AbstractCoordinate c);
 
     /**
      * @return
      * 
      * 	getter
      */
-    public double getLatitude();
+    public abstract double getLatitude();
 
     /**
      * @param latitude
      * 
      * setter
      */
-    public void setLatitude(double latitude);
+    public abstract void setLatitude(double latitude);
 
     /**
      * @return
      * 
      * 	getter
      */
-    public double getLongitude();
+    public abstract double getLongitude();
 
     /**
      * @param longitude
      * 
      * setter
      */
-    public void setLongitude(double longitude);
+    public abstract void setLongitude(double longitude);
 }

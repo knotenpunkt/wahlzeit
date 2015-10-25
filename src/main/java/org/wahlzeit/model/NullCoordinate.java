@@ -1,6 +1,6 @@
 package org.wahlzeit.model;
 
-public class NullCoordinate implements AbstractCoordinate {
+public class NullCoordinate extends AbstractCoordinate {
 
     @Override
     public AbstractCoordinate getDistance(AbstractCoordinate c) {

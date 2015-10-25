@@ -4,7 +4,7 @@ package org.wahlzeit.model;
  * @author robin
  *
  */
-public class Coordinate implements AbstractCoordinate {
+public class Coordinate extends AbstractCoordinate {
 
     private double latitude = 0;
     private double longitude = 0;
