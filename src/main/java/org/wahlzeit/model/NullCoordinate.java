@@ -3,7 +3,7 @@ package org.wahlzeit.model;
 public class NullCoordinate extends AbstractCoordinate {
 
     @Override
-    public AbstractCoordinate getDistance(AbstractCoordinate c) {
+    public double getDistance(AbstractCoordinate c) {
 	throw new CoordinateIsNullException();
     }
 

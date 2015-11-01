@@ -4,12 +4,18 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import org.wahlzeit.model.Administrator;
+import org.wahlzeit.model.Bauart;
+import org.wahlzeit.model.BauartBarock;
+import org.wahlzeit.model.BauartNormal;
+import org.wahlzeit.model.BurnDownStil;
 import org.wahlzeit.model.Client;
+import org.wahlzeit.model.ConcreteRoom;
 import org.wahlzeit.model.Globals;
 import org.wahlzeit.model.Guest;
 import org.wahlzeit.model.Moderator;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoCase;
+import org.wahlzeit.model.PhotoHaus;
 import org.wahlzeit.model.Tag;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.persistence.DatastoreAdapter.ImageWrapper;
@@ -26,6 +32,12 @@ public class OfyService {
 	 */
 	static {
 		factory().register(Photo.class);
+		factory().register(PhotoHaus.class);
+		/*factory().register(Bauart.class);
+		factory().register(BauartBarock.class);
+		factory().register(BauartNormal.class);
+		factory().register(BurnDownStil.class);
+		factory().register(ConcreteRoom.class);*/
 		factory().register(Globals.class);
 		factory().register(Tag.class);
 		factory().register(User.class);

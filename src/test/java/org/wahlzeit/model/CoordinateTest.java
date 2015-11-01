@@ -75,18 +75,16 @@ public class CoordinateTest {
     @Test
     public void testMethodGetDistance() {
 
-	Coordinate c_tmp1 = new Coordinate(5, 15);
-	Coordinate c_tmp2 = new Coordinate(5, 25);
+	//Coordinate c_tmp1 = new Coordinate(5, 15);
+	//Coordinate c_tmp2 = new Coordinate(5, 25);
 
 	// assertEquals(c_tmp1.hashCode(),
 	// c.get(7).getDistance(c.get(11)).hashCode());
 	// assertEquals(c_tmp2, c.get(8).getDistance(c.get(11)));
 
-	assertEquals(c_tmp1.getLatitude(), c.get(7).getDistance(c.get(11)).getLatitude(), delta);
-	assertEquals(c_tmp1.getLongitude(), c.get(7).getDistance(c.get(11)).getLongitude(), delta);
-
-	assertEquals(c_tmp1.getLatitude(), c.get(8).getDistance(c.get(11)).getLatitude(), delta);
-	assertEquals(c_tmp2.getLongitude(), c.get(8).getDistance(c.get(11)).getLongitude(), delta);
+	assertEquals(0.7919053815323334, c.get(7).getDistance(c.get(11)), delta);
+	assertEquals(1.2857866311189428, c.get(8).getDistance(c.get(11)), delta);
+	
     }
 
     @Test(expected = IllegalArgumentException.class)

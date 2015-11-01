@@ -19,8 +19,14 @@ public class Coordinate extends AbstractCoordinate {
     }
 
     @Override
-    public Coordinate getDistance(AbstractCoordinate c) {
-	return new Coordinate(Math.abs(this.latitude - c.getLatitude()), Math.abs(this.longitude - c.getLongitude()));
+    public double getDistance(AbstractCoordinate c) {
+	
+	return Math.acos(Math.sin(this.latitude)*
+		Math.sin(c.getLatitude()) + 
+		Math.cos(this.latitude)*
+		Math.cos(c.getLatitude())*
+		Math.cos(Math.abs(c.getLongitude()-this.longitude)));
+	//return new Coordinate(Math.abs(this.latitude - c.getLatitude()), Math.abs(this.longitude - c.getLongitude()));
     }
 
     @Override

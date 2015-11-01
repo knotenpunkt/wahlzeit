@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2006-2009 by Dirk Riehle, http://dirkriehle.com
  *
- * This file is part of the Wahlzeit photo rating application.
+ * This file is part of the Wahlzeit Photo rating application.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,7 +36,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * A photo represents a user-provided (uploaded) photo.
+ * A Photo represents a user-provided (uploaded) Photo.
  */
 @Entity
 public class Photo extends DataObject {
@@ -67,6 +67,7 @@ public class Photo extends DataObject {
     public static final int MAX_PHOTO_HEIGHT = 600;
     public static final int MAX_THUMB_PHOTO_WIDTH = 105;
     public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
+    
 
     protected PhotoId id = null;
 
@@ -76,7 +77,7 @@ public class Photo extends DataObject {
     protected String ownerId;
 
     /**
-     * Each photo can be viewed in different sizes (XS, S, M, L, XL) Images are
+     * Each Photo can be viewed in different sizes (XS, S, M, L, XL) Images are
      * pre-computed in these sizes to optimize bandwidth when requested.
      */
     @Ignore
@@ -129,7 +130,7 @@ public class Photo extends DataObject {
      * 
      * habs noch schnell auf ne abstrakte Klasse refactored
      */
-    protected AbstractCoordinate abstrCoordinate;// = new NullCoordinate();
+    protected Location location;
 
     /**
      *
@@ -157,29 +158,31 @@ public class Photo extends DataObject {
 	incWriteCount();
     }
 
-    public AbstractCoordinate getAbstrCoordinate() {
-	//return abstrCoordinate;
-	return null;
+
+
+    public Location getLocation() {
+        return location;
     }
 
-    public void setAbstrCoordinate(AbstractCoordinate abstrCoordinate) {
-	//this.abstrCoordinate = (abstrCoordinate != null) ? abstrCoordinate : new NullCoordinate();
-	incWriteCount();
-
+    public void setLocation(Location location) {
+	if(location==null){
+	    throw new IllegalArgumentException("location may not be null. Please set coordinate to null (NullCoordinate)");
+	}
+        this.location = location;
     }
 
     /**
      * @methodtype get
      */
-    public Image getImage(PhotoSize photoSize) {
-	return images.get(photoSize);
+    public Image getImage(PhotoSize PhotoSize) {
+	return images.get(PhotoSize);
     }
 
     /**
      * @methodtype set
      */
-    public void setImage(PhotoSize photoSize, Image image) {
-	this.images.put(photoSize, image);
+    public void setImage(PhotoSize PhotoSize, Image image) {
+	this.images.put(PhotoSize, image);
     }
 
     /**
@@ -259,8 +262,8 @@ public class Photo extends DataObject {
     /**
      * @methodtype boolean-query
      */
-    public boolean hasSameOwner(Photo photo) {
-	return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
+    public boolean hasSameOwner(Photo Photo) {
+	return Photo.getOwnerEmailAddress().equals(ownerEmailAddress);
     }
 
     /**
@@ -326,7 +329,7 @@ public class Photo extends DataObject {
     }
 
     /**
-     * Can this photo satisfy provided photo size?
+     * Can this Photo satisfy provided Photo size?
      *
      * @methodtype boolean-query
      */
@@ -437,4 +440,5 @@ public class Photo extends DataObject {
 	noVotesAtLastNotification = noVotes;
 	incWriteCount();
     }
+    
 }

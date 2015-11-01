@@ -18,7 +18,7 @@ abstract class AbstractCoordinate {
      *         return the result packed into a {@link AbstractCoordinate} Object
      * 
      */
-    public abstract AbstractCoordinate getDistance(AbstractCoordinate c);
+    public abstract double getDistance(AbstractCoordinate c);
 
     /**
      * @param c

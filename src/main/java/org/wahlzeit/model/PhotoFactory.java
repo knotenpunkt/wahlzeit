@@ -76,7 +76,10 @@ public class PhotoFactory {
 	 * @methodtype factory
 	 */
 	public Photo createPhoto() {
-		return new Photo();
+	    /**
+	     * Da ja laut Forum nur eine produktreihe benoetigt wird reicht diese Aenderung wohl vollkommen aus!
+	     */
+		return new PhotoHaus();
 	}
 
 	/**
