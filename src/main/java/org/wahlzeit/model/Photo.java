@@ -130,7 +130,11 @@ public class Photo extends DataObject {
      * 
      * habs noch schnell auf ne abstrakte Klasse refactored
      */
+<<<<<<< HEAD
     protected Location location;
+=======
+    protected AbstractCoordinate abstrCoordinate = new NullCoordinate();
+>>>>>>> 80a0ace1428c23d65984f0c063282a9c3605025e
 
     /**
      *
@@ -158,7 +162,17 @@ public class Photo extends DataObject {
 	incWriteCount();
     }
 
+<<<<<<< HEAD
 
+=======
+    public AbstractCoordinate getAbstrCoordinate() {
+	return abstrCoordinate;
+    }
+
+    public void setAbstrCoordinate(AbstractCoordinate abstrCoordinate) {
+	this.abstrCoordinate = (abstrCoordinate != null) ? abstrCoordinate : new NullCoordinate();
+	incWriteCount();
+>>>>>>> 80a0ace1428c23d65984f0c063282a9c3605025e
 
     public Location getLocation() {
         return location;
