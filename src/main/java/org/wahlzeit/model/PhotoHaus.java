@@ -67,7 +67,7 @@ public class PhotoHaus extends Photo implements Serializable {
      */
     public PhotoHaus()
     {
-	//super();
+	super();
     }
     
    /**
