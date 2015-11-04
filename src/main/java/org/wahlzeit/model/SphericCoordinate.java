@@ -48,7 +48,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     public void setLatitude(double latitude) {
-	if(latitude<0)throw new IllegalArgumentException("latitude<0 not allowed");
+	//if(latitude<0)throw new IllegalArgumentException("latitude<0 not allowed");
 	this.latitude = latitude;
     }
 
@@ -57,7 +57,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     public void setLongitude(double longitude) {
-	if(longitude<0)throw new IllegalArgumentException("longitude<0 not allowed");
+	//if(longitude<0)throw new IllegalArgumentException("longitude<0 not allowed");
 	this.longitude = longitude;
     }
 

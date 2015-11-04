@@ -3,6 +3,8 @@ package org.wahlzeit.model;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.googlecode.objectify.annotation.Entity;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
  * Dafuer schreib ich eine weitere Testklasse und zwar eine Allgemeine, die genau das "allgemeine" Verhalten von Coordinate testen soll!!!!
  *
  */
+@Entity
 public class SphericCoordinateTest  {
 
     private ArrayList<Coordinate> c = new ArrayList<Coordinate>();

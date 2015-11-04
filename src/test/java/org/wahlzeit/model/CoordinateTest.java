@@ -35,10 +35,10 @@ public class CoordinateTest  {
     @Before
     public void initCoordinate() 
     {
-    	this.c1=new SphericCoordinate(22, 23);
-    	this.c2=new CartesianCoordinate(55, 56, 57);
-       	this.c3=new SphericCoordinate(70, 80);
-    	this.c4=new CartesianCoordinate(11, 456, 23);
+    	this.c1=new SphericCoordinate(49.55,11.0036);//(22.0, 23.0);
+    	this.c2=new CartesianCoordinate(55.0, 56.0, 57.0);
+       	this.c3=new SphericCoordinate(70.0, 80.0);
+    	this.c4=new CartesianCoordinate(11.0, 456.0, 23.0);
     	this.c5=new NullCoordinate();
     }
 
@@ -52,8 +52,8 @@ public class CoordinateTest  {
 	assertNotNull(c5);
 
 	// Check properties after creation
-	assertEquals(22, (((SphericCoordinate) c1).getLatitude()), delta);
-	assertEquals(23, (((SphericCoordinate) c1).getLongitude()), delta);
+	assertEquals(49.55, (((SphericCoordinate) c1).getLatitude()), delta);
+	assertEquals(11.0036, (((SphericCoordinate) c1).getLongitude()), delta);
 	
 	
 	assertEquals(55, (((CartesianCoordinate) c2).getX()), delta);
@@ -67,6 +67,15 @@ public class CoordinateTest  {
      */
     @Test
     public void testMethodIsEqual() {
+    	
+   CartesianCoordinate dbgpoint= c1.asCartesianCoordinate();
+   SphericCoordinate dbgpoint2=dbgpoint.asSphericCoordinate(); 
+  
+   
+   System.out.println(dbgpoint.getX()*dbgpoint.getX() + dbgpoint.getY()*dbgpoint.getY() + dbgpoint.getZ()*dbgpoint.getZ());
+   
+   System.out.println("dbg-point");
+    	
 	assertTrue(c1.isEqual(c1.asCartesianCoordinate()));
 	assertTrue(c2.isEqual(c2.asCartesianCoordinate()));
 	assertTrue(c3.isEqual(c3.asSphericCoordinate()));
@@ -89,9 +98,24 @@ public class CoordinateTest  {
     @Test 
     public void testNullCoordinateIsEqualsMethod()
     {
-    	assertTrue(!(c5.equals(c5)));
-    	assertTrue(!(c1.equals(c5)));
-    	assertTrue(!(c5.equals(c1)));
+    	assertTrue(!(c5.isEqual(c5)));
+    	//assertTrue(!(c1.isEqual(c5)));//geht so nicht muesste sonst in jeder Methode von isEqual ein instanceof stehen
+    								//von daher nehme ich hier ein throw exception in kauf
+    	
+    	boolean flag=false;
+    	try
+    	{
+    		c1.isEqual(c5);
+    	}
+    	catch(Throwable e)
+    	{
+    		flag=true;
+    	}
+    	
+    	assertTrue(flag);
+    	
+    	
+    	assertTrue(!(c5.isEqual(c1)));
     }
 
     @Test
@@ -105,8 +129,8 @@ public class CoordinateTest  {
 	//schoener ware es wenn ichs wie in der anderen Tesetklasse von mir auf einzelene methoden aufteilen wuerde
 	//da man dann gleich weis, was genau faild, hiermit weis ich nur dass die familie failt, den genauen fehler muss man dann noch lokalisieren
 	//ich wollte einfach mal so einen Test schreiben, von daher hab ich des mal so gemacht^^
-    @Test(expected = Exception.class)
-    public void testMethodSetLatitude() {
+    @Test(expected = RuntimeException.class)
+    public void testPossibleExceptions() {
 
     	int counter=0;
    
@@ -116,7 +140,7 @@ public class CoordinateTest  {
     	try{c5.getDistance(c1);}catch(Throwable e){counter++;}
     	try{c1.getDistance(c5);}catch(Throwable e){counter++;}
   
-    	if(counter !=4){throw new RuntimeException("ExceptionTests fails");}
+    	if(counter == 4){throw new RuntimeException("ExceptionTests fails");}
 
 
     }

@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Entity;
+
+@Entity
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private double x=0;
@@ -54,9 +57,17 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
 		
-		double varLat=this.calcLongitude();
+		/*
+		double varLat=Math.atan2(this.y, this.x);//this.calcLongitude();
 		double varLong =Math.PI/2- Math.atan(this.z/Math.sqrt(this.x*this.x+this.y*this.y));		
 		return new SphericCoordinate(varLat, varLong);
+		*/
+		
+		double varLat=Math.atan(this.y/this.x);//this.calcLongitude();
+		double varLong =Math.acos(this.z/(this.x*this.x + this.y*this.y + this.z*this.z));		
+		return new SphericCoordinate(varLat, varLong);
+		
+		
 	}
 	
 	/**

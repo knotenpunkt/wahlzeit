@@ -2,7 +2,7 @@ package org.wahlzeit.model;
 
 public class Location {
     
-    protected AbstractCoordinate abstrCoordinate= new NullCoordinate();
+    protected Coordinate abstrCoordinate= new NullCoordinate();
     
     /**
      * 
@@ -10,7 +10,7 @@ public class Location {
      * @methodtype getter
      * @methodproperty primitive
      */
-    public AbstractCoordinate getAbstrCoordinate() {
+    public Coordinate getAbstrCoordinate() {
   	return abstrCoordinate;
   	
       }

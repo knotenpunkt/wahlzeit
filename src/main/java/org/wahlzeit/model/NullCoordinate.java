@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Entity;
+
+@Entity
 public class NullCoordinate extends AbstractCoordinate {
 
     @Override
