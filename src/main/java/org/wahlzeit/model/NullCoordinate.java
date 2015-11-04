@@ -3,10 +3,28 @@ package org.wahlzeit.model;
 public class NullCoordinate extends AbstractCoordinate {
 
     @Override
-    public double getDistance(AbstractCoordinate c) {
+    public double getDistance(Coordinate c) {
 	throw new CoordinateIsNullException();
     }
 
+	@Override
+	public boolean isEqual(Coordinate c) {
+		return false; //nullobj !=nullObj nach meiner definition jetzt
+	}
+
+	@Override
+	public SphericCoordinate asSphericCoordinate() {
+		throw new CoordinateIsNullException();
+	}
+
+	@Override
+	public CartesianCoordinate asCartesianCoordinate() {
+		throw new CoordinateIsNullException();
+	}
+
+    
+    
+    /*
     @Override
     public double getLatintudinalDistance(AbstractCoordinate c) {
 	throw new CoordinateIsNullException();
@@ -37,5 +55,6 @@ public class NullCoordinate extends AbstractCoordinate {
     public void setLongitude(double longitude) {
 	throw new CoordinateIsNullException();
     }
+	*/
 
 }

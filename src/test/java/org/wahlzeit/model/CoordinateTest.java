@@ -2,6 +2,8 @@ package org.wahlzeit.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
+import org.mockito.internal.stubbing.answers.ThrowsException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,27 +11,35 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-public class CoordinateTest {
 
-    private ArrayList<AbstractCoordinate> c = new ArrayList<AbstractCoordinate>();
+
+/**
+ * 
+ * @author Robin
+ * 
+ * HINWEIS: siehe als Ergaenzung bitte auch die Klasse SphericCoordinateTest
+ *
+ */
+public class CoordinateTest  {
+
+    private Coordinate c1;
+    private Coordinate c2; 
+    
+    private Coordinate c3;
+    private Coordinate c4; 
+    
+    private Coordinate c5;
+    
     private double delta = 0.00001;
 
     @Before
-    public void initPhotoFilter() {
-	c.clear();
-	for (int i = 0; i < 5; i++) {
-	    c.add(new Coordinate(i * 3, i * 7));// 0-4
-	}
-
-	c.add(new NullCoordinate());// 5
-	c.add(new NullCoordinate());// 6
-
-	c.add(new Coordinate(10, 20));// 7
-	c.add(new Coordinate(0, 30));// 8
-	c.add(new Coordinate(30, 0));// 9
-
-	c.add(new Coordinate(678.77, 77.8723));// 10
-	c.add(new Coordinate(5, 5));// 11
+    public void initCoordinate() 
+    {
+    	this.c1=new SphericCoordinate(22, 23);
+    	this.c2=new CartesianCoordinate(55, 56, 57);
+       	this.c3=new SphericCoordinate(70, 80);
+    	this.c4=new CartesianCoordinate(11, 456, 23);
+    	this.c5=new NullCoordinate();
     }
 
     /**
@@ -37,133 +47,80 @@ public class CoordinateTest {
      */
     @Test
     public void testConstructor() {
-	assertNotNull(c.get(7));
+	assertNotNull(c1);
+	assertNotNull(c2);
+	assertNotNull(c5);
 
 	// Check properties after creation
-	assertEquals(10, c.get(7).getLatitude(), delta);
-	assertEquals(20, c.get(7).getLongitude(), delta);
+	assertEquals(22, (((SphericCoordinate) c1).getLatitude()), delta);
+	assertEquals(23, (((SphericCoordinate) c1).getLongitude()), delta);
+	
+	
+	assertEquals(55, (((CartesianCoordinate) c2).getX()), delta);
+	assertEquals(56, (((CartesianCoordinate) c2).getY()), delta);
+	assertEquals(57, (((CartesianCoordinate) c2).getZ()), delta);
+	
     }
 
     /**
      *
      */
     @Test
-    public void testLatitudeDistanceCalculator() {
-	assertEquals(668.77, c.get(7).getLatintudinalDistance(c.get(10)), delta);
-	assertEquals(30, c.get(8).getLatintudinalDistance(c.get(9)), delta);
-
-    }
-
-    @Test
-    public void testLongitudinalDistanceCalculator() {
-	assertEquals(15, c.get(7).getLongitudinalDistance(c.get(11)), delta);
-	assertEquals(57.8723, c.get(7).getLongitudinalDistance(c.get(10)), delta);
-
-    }
-
-    @Test
-    public void testequalObjects() {
-	for (int i = 0; i < c.size(); i++) {
-	    if (c.get(i) instanceof Coordinate) {
-		assertEquals(0, c.get(i).getLongitudinalDistance(c.get(i)), delta);
-		assertEquals(0, c.get(i).getLatintudinalDistance(c.get(i)), delta);
-	    }
+    public void testMethodIsEqual() {
+	assertTrue(c1.isEqual(c1.asCartesianCoordinate()));
+	assertTrue(c2.isEqual(c2.asCartesianCoordinate()));
+	assertTrue(c3.isEqual(c3.asSphericCoordinate()));
+	assertTrue(c4.isEqual(c4.asSphericCoordinate()));
 	}
-
-    }
 
     @Test
     public void testMethodGetDistance() {
-
-	//Coordinate c_tmp1 = new Coordinate(5, 15);
-	//Coordinate c_tmp2 = new Coordinate(5, 25);
-
-	// assertEquals(c_tmp1.hashCode(),
-	// c.get(7).getDistance(c.get(11)).hashCode());
-	// assertEquals(c_tmp2, c.get(8).getDistance(c.get(11)));
-
-	assertEquals(0.7919053815323334, c.get(7).getDistance(c.get(11)), delta);
-	assertEquals(1.2857866311189428, c.get(8).getDistance(c.get(11)), delta);
 	
+    	assertEquals(0,c1.getDistance(c1), this.delta);
+    	assertEquals(0,c2.getDistance(c4), this.delta);
+    	assertEquals(0,c3.getDistance(c3), this.delta);
+    	assertEquals(0,c4.getDistance(c4), this.delta);
+    	
+    	assertEquals(0,c1.getDistance(c1.asCartesianCoordinate()), this.delta);
+    	assertEquals(0,c2.getDistance(c2.asSphericCoordinate()), this.delta);
+
+     }
+    
+    @Test 
+    public void testNullCoordinateIsEqualsMethod()
+    {
+    	assertTrue(!(c5.equals(c5)));
+    	assertTrue(!(c1.equals(c5)));
+    	assertTrue(!(c5.equals(c1)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    public void testCorrectConversion()
+    {
+    	assertTrue(true);//Todo einmal von spherisch zu kartesisch
+    	assertTrue(true);//Todo und einmal andersrum
+    }
+ 
+
+	//schoener ware es wenn ichs wie in der anderen Tesetklasse von mir auf einzelene methoden aufteilen wuerde
+	//da man dann gleich weis, was genau faild, hiermit weis ich nur dass die familie failt, den genauen fehler muss man dann noch lokalisieren
+	//ich wollte einfach mal so einen Test schreiben, von daher hab ich des mal so gemacht^^
+    @Test(expected = Exception.class)
     public void testMethodSetLatitude() {
 
-	c.get(7).setLatitude(-10);
+    	int counter=0;
+   
+    	try{c5.asCartesianCoordinate();}catch(Throwable e){counter++;}
+    	try{c5.asSphericCoordinate();}catch(Throwable e){counter++;}
+    	
+    	try{c5.getDistance(c1);}catch(Throwable e){counter++;}
+    	try{c1.getDistance(c5);}catch(Throwable e){counter++;}
+  
+    	if(counter !=4){throw new RuntimeException("ExceptionTests fails");}
+
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testMethodsetLongitude() {
 
-	c.get(7).setLongitude(-5);
-
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testIllegalConstructorAccess1() {
-
-	new Coordinate(-1, 10);
-
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testIllegalConstructorAccess2() {
-
-	new Coordinate(10, -1);
-
-    }
-
-    // folgende Faelle sind eigentlich trivial, aber testen macht spass^^
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate1() {
-
-	c.get(5).getDistance(c.get(7));
-
-    }
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate2() {
-
-	c.get(5).getLatintudinalDistance(c.get(7));
-
-    }
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate3() {
-
-	c.get(5).getLatitude();
-
-    }
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate4() {
-
-	c.get(5).getLongitude();
-
-    }
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate5() {
-
-	c.get(5).getLongitudinalDistance(c.get(7));
-
-    }
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate6() {
-
-	c.get(5).setLatitude(5);
-
-    }
-
-    @Test(expected = CoordinateIsNullException.class)
-    public void testCorrectNullCoordinate7() {
-
-	c.get(5).setLongitude(5);
-
-    }
-
+   
 }
