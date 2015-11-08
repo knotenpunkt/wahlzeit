@@ -3,6 +3,7 @@ package org.wahlzeit.services;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
+
 import org.wahlzeit.model.Administrator;
 import org.wahlzeit.model.Bauart;
 import org.wahlzeit.model.BauartBarock;
@@ -19,6 +20,7 @@ import org.wahlzeit.model.PhotoHaus;
 import org.wahlzeit.model.Tag;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.persistence.DatastoreAdapter.ImageWrapper;
+import org.wahlzeit.model.*;
 
 /**
  * A badly named class, to be renamed to ObjectifyService first, something better later.
@@ -33,6 +35,8 @@ public class OfyService {
 	static {
 		factory().register(Photo.class);
 		factory().register(PhotoHaus.class);
+		//factory().register(Location.class); 
+		//factory().register(Coordinate.class);
 		/*factory().register(Bauart.class);
 		factory().register(BauartBarock.class);
 		factory().register(BauartNormal.class);

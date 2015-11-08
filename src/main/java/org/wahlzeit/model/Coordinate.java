@@ -1,13 +1,43 @@
 package org.wahlzeit.model;
 
-public interface Coordinate {
+import java.io.Serializable;
 
-	public double getDistance(Coordinate c);
+import com.googlecode.objectify.annotation.Entity;
 
-	public boolean isEqual(Coordinate c);
+public interface Coordinate extends Serializable, Visitable<SphericCoordinate, Void, SphericCoordinate, Void> {
 
-	public SphericCoordinate asSphericCoordinate();
+    /**
+     * 
+     * @param c
+     * @return
+     * 
+     * @methodtype get
+     */
+    public double getDistance(Coordinate c);
 
-	public CartesianCoordinate asCartesianCoordinate();
+    /**
+     * 
+     * @param c
+     * @return
+     * 
+     * @methodtype comparsion
+     */
+    public boolean isEqual(Coordinate c);
+
+    /**
+     * 
+     * @return
+     * 
+     * @methodtype conversion
+     */
+    public SphericCoordinate asSphericCoordinate();
+
+    /**
+     * 
+     * @return
+     * 
+     * @methodtype conversion
+     */
+    public CartesianCoordinate asCartesianCoordinate();
 
 }

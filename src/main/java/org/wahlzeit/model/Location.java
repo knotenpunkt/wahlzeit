@@ -1,8 +1,26 @@
 package org.wahlzeit.model;
 
-public class Location {
+import java.io.Serializable;
+
+import org.wahlzeit.services.ObjectManager;
+
+import com.google.appengine.api.datastore.Key;
+import com.googlecode.objectify.annotation.Container;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Parent;
+//@Entity
+public class Location implements Serializable{
     
-    protected Coordinate abstrCoordinate= new NullCoordinate();
+   /* 
+    @Id
+    Long idLong;
+    @Parent
+    Key parent = ObjectManager.applicationRootKey;
+    */
+    
+    @Container
+    protected Coordinate abstrCoordinate;//= new NullCoordinate();
     
     /**
      * 

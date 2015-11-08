@@ -25,6 +25,11 @@ public class NullCoordinate extends AbstractCoordinate {
 		throw new CoordinateIsNullException();
 	}
 
+	@Override
+	public SphericCoordinate accept(DistanceCalculatorVisitor<SphericCoordinate, Void> v, Void ein_weiterer_parameter) {
+	    throw new CoordinateIsNullException();
+	}
+
     
     
     /*
