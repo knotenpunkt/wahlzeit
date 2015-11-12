@@ -13,6 +13,24 @@ public interface Coordinate extends Serializable, Visitable<SphericCoordinate, V
      * 
      * @methodtype get
      */
+    public double getDistanceHa06(Coordinate c);
+
+    /**
+     * 
+     * @param c
+     * @return
+     * 
+     * @methodtype comparsion
+     */
+    public boolean isEqualHa06(Coordinate c);
+
+    /**
+     * 
+     * @param c
+     * @return
+     * 
+     * @methodtype get
+     */
     public double getDistance(Coordinate c);
 
     /**

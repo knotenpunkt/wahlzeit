@@ -91,6 +91,15 @@ public class CoordinateTest {
     }
 
     @Test
+    public void testMethodIsEqualHa06() {
+
+	assertTrue(c1.isEqualHa06(c1.asCartesianCoordinate()));
+	assertTrue(c2.isEqualHa06(c2.asCartesianCoordinate()));
+	assertTrue(c3.isEqualHa06(c3.asSphericCoordinate()));
+	assertTrue(c4.isEqualHa06(c4.asSphericCoordinate()));
+    }
+
+    @Test
     public void testMethodGetDistance() {
 
 	assertEquals(0, c1.getDistance(c1), this.delta);
@@ -100,6 +109,19 @@ public class CoordinateTest {
 
 	assertEquals(0, c1.getDistance(c1.asCartesianCoordinate()), this.delta);
 	assertEquals(0, c2.getDistance(c2.asSphericCoordinate()), this.delta);
+
+    }
+
+    @Test
+    public void testMethodGetDistanceHa06() {
+
+	assertEquals(0, c1.getDistanceHa06(c1), this.delta);
+	assertEquals(0, c2.getDistanceHa06(c2), this.delta);
+	assertEquals(0, c3.getDistanceHa06(c3), this.delta);
+	assertEquals(0, c4.getDistanceHa06(c4), this.delta);
+
+	assertEquals(0, c1.getDistanceHa06(c1.asCartesianCoordinate()), this.delta);
+	assertEquals(0, c2.getDistanceHa06(c2.asSphericCoordinate()), this.delta);
 
     }
 
