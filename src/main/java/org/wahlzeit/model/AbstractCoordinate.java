@@ -16,21 +16,34 @@ abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public double getDistanceHa06(Coordinate c) {
-	// ich finde ob ich jetzt auf dem Objekt CartesianCoordinate oder auf
-	// getX, getY, getZ arbeite
-	// macht keinen unterschied
-	// asCartesianCoordinate hat unteranderem den Vorteil, dass ich das
-	// ganze zusammenhaengend bekomme
-	// Bei meiner letzten Abgabe wurde ja hauptsaechlich kritisiert, dass
-	// asCartesian und asSpheric gleichzeitig verwendet habe
-	// Dies faellt mit dieser Abgabe ja jetzt raus
-
-	CartesianCoordinate dhis = this.asCartesianCoordinate();
-	CartesianCoordinate cc = c.asCartesianCoordinate();
+    /**
+		// ich finde ob ich jetzt auf dem Objekt CartesianCoordinate oder auf
+		// getX, getY, getZ arbeite
+		// macht keinen unterschied
+		// asCartesianCoordinate hat unteranderem den Vorteil, dass ich das
+		// ganze zusammenhaengend bekomme
+		// Bei meiner letzten Abgabe wurde ja hauptsaechlich kritisiert, dass
+		// asCartesian und asSpheric gleichzeitig verwendet habe
+		// Dies faellt mit dieser Abgabe ja jetzt raus
+	*/
+    	
+    assert (c != null);
+    
+    CartesianCoordinate dhis = this.asCartesianCoordinate();
+    CartesianCoordinate cc = c.asCartesianCoordinate();
+    
+    assert ((Math.abs(Math.sqrt(cc.getX() * cc.getX() + cc.getY() * cc.getY() + cc.getZ() * cc.getZ()) - this.erdradius)) > this.epsilon);
+    
+	
 
 	return Math.sqrt((dhis.getX() - cc.getX()) * (dhis.getX() - cc.getX())
 		+ (dhis.getY() - cc.getY()) * (dhis.getY() - cc.getY())
 		+ (dhis.getZ() - cc.getZ()) * (dhis.getZ() - cc.getZ()));
+	
+	
+	//hier macht eine postcondition keinen sinn, da der zustand nicht veraendert wird!!!!
+	
+	
 
     }
 
@@ -42,7 +55,14 @@ abstract class AbstractCoordinate implements Coordinate {
      * @methodtype comparsion
      */
     public boolean isEqualHa06(Coordinate c) {
-	if (c == this) // this entspricht dem dynamischen typ, die operationen
+    	
+    	//hier sichert mir java type-Check schon mal zu, dass es sich mindestens um ein Coordinate-Objekt handelt
+    	//und somit ist kein assert notwendig
+    	
+    	
+	if (c == this)
+			/**
+			   // this entspricht dem dynamischen typ, die operationen
 		       // auf this aber dem statischen,
 		       // also hoechstens AbstractCoordinate
 		       // ist aber eigentlich hier wurschd, da eh nur die
@@ -50,6 +70,7 @@ abstract class AbstractCoordinate implements Coordinate {
 		       // verglichen werden^^
 		       // Die Hausaufgabe war diesmal so wenig, also musste ich
 		       // irgend nen Text dazu schreiben^^
+			*/
 
 	    if (c == null)
 		return false;
@@ -73,6 +94,25 @@ abstract class AbstractCoordinate implements Coordinate {
 	return true;
 
     }
+    
+    
+    protected void assertClassInvariants()
+    {
+    	 CartesianCoordinate dhis = this.asCartesianCoordinate();
+    	 assert ((Math.abs(Math.sqrt(dhis.getX() * dhis.getX() + dhis.getY() * dhis.getY() + dhis.getZ() * dhis.getZ()) - this.erdradius)) > this.epsilon);
+    	    
+    	
+    	//TODO eventuell ein paar weitere
+    	
+    	
+    }
+    
+    
+        
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    
 
     /*
      * 

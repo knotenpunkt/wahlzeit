@@ -218,5 +218,8 @@ public class CoordinateTest {
     public void testIllegalContructorParameter() {
 	new CartesianCoordinate(5, 9, 15);
     }
+    
+  //TODO tests fuer Vertraege
+    
 
 }
