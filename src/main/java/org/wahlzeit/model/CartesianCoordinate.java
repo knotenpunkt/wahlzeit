@@ -2,6 +2,14 @@ package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Entity;
 
+/**
+ * 
+ * @author robin
+ *
+ */
+
+
+
 @Entity
 public class CartesianCoordinate extends AbstractCoordinate {
 
@@ -118,7 +126,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	protected void assertClassInvariants()
 	{
-		
+		//TODO
 	}
 
 
