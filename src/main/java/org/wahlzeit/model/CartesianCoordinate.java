@@ -49,7 +49,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 */
 	public void setCartesianCoordinateData(double x, double y, double z) {
 
-		//TODO preConditions
+	    	assert !Double.isNaN(x);
+	    	assert !Double.isNaN(y);
+	    	assert !Double.isNaN(z);
+	    	
 		
 		if ((Math.abs(Math.sqrt(x * x + y * y + z * z) - this.erdradius)) > this.epsilon) {
 			throw new IllegalArgumentException(
@@ -61,10 +64,13 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		
+		
+		//triviale faelle, siehe zur begruendung setter methoden in Speric-Coodrinate
+		assert this.x==x;
+		assert this.y==y;
+		assert this.z==z;
 
-		
-		
-		//TODO postconditions
 		this.assertClassInvariants();
 		
 		
@@ -126,12 +132,30 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	@Override
 	protected void assertClassInvariants()
 	{
-		//TODO
+	 
+	    	super.assertClassInvariants();
+	    
+	    	
+	    	
+	    	//verschaerte invarianten!
+		assert !Double.isNaN(this.x);
+		assert !Double.isNaN(this.y);
+		assert !Double.isNaN(this.z);
+		
+		
+		//assert weitere CartesianCoordinate spezifische invarianten
+		//da es nicht genau spezifiziert war, wie so eine derartige Klasse auszusehen hat,
+		//denke ich reicht das  erst mal
+		//aber das prinzip das ich hier anwende wird -denke - ich daraus klar!
+		
+		
+		
+	    
 	}
 
 
 	
-	/********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
 	

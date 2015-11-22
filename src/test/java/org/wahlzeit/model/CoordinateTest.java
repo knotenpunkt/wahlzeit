@@ -219,7 +219,29 @@ public class CoordinateTest {
 	new CartesianCoordinate(5, 9, 15);
     }
     
-  //TODO tests fuer Vertraege
+ 
+    
+    @Test(expected = AssertionError.class)
+    public void testIllegalClassInvariants1() {
+	new CartesianCoordinate(Double.NaN, 9, 15);
+    }
+    
+    @Test(expected = AssertionError.class)
+    public void testIllegalClassInvariants2() {
+	new CartesianCoordinate(0, Double.NaN, 15);
+    }
+    
+    @Test(expected = AssertionError.class)
+    public void testIllegalClassInvariants3() {
+	new CartesianCoordinate(0, 9, Double.NaN);
+    }
+    
+    
+    //die anderen Klasseninvarianten werden schon indirekt ueberprueft, bzw. getestet
+    //an manche klasseninvarianten komme ich auch nicht direkt, da pre/postconditions diese schon abfangen
+    //ums also noch besser zu machen, muesste man eine fehlerhafte Klasse schreiben, die von AbstractCoordinate erbt
+    //und somit koennte ich zumindesten den abstrakten Zustand bzw. dessen Klasseninvarianz testen^^
+    
     
 
 }

@@ -32,7 +32,11 @@ abstract class AbstractCoordinate implements Coordinate {
     CartesianCoordinate dhis = this.asCartesianCoordinate();
     CartesianCoordinate cc = c.asCartesianCoordinate();
     
-    assert ((Math.abs(Math.sqrt(cc.getX() * cc.getX() + cc.getY() * cc.getY() + cc.getZ() * cc.getZ()) - this.erdradius)) > this.epsilon);
+    
+    //folgende assertions kann schon in der klasse geprueft worden sein, ist die implementierung aber fehlerhaft,
+    //heisst sie prueft nicht spezifikationsabhaengige Klasseninvarianten, dann ist dieser Check hier definitiv sinnvoll!
+    //(also jetzt sehe ich ja den code, aber wenn spaeter dann XXCordinates hinzugefuegt werden....)
+    assert (!((Math.abs(Math.sqrt(cc.getX() * cc.getX() + cc.getY() * cc.getY() + cc.getZ() * cc.getZ()) - this.erdradius)) > this.epsilon));
     
 	
 
@@ -59,6 +63,7 @@ abstract class AbstractCoordinate implements Coordinate {
     	//hier sichert mir java type-Check schon mal zu, dass es sich mindestens um ein Coordinate-Objekt handelt
     	//und somit ist kein assert notwendig
     	
+	//außerdem ist die isEqual-Methode nicht von der Assertion-Semantik abhaengig - meiner Meinung nach!
     	
 	if (c == this)
 			/**
@@ -99,10 +104,29 @@ abstract class AbstractCoordinate implements Coordinate {
     protected void assertClassInvariants()
     {
     	 CartesianCoordinate dhis = this.asCartesianCoordinate();
-    	 assert ((Math.abs(Math.sqrt(dhis.getX() * dhis.getX() + dhis.getY() * dhis.getY() + dhis.getZ() * dhis.getZ()) - this.erdradius)) > this.epsilon);
-    	    
+    	 assert (!((Math.abs(Math.sqrt(dhis.getX() * dhis.getX() + dhis.getY() * dhis.getY() + dhis.getZ() * dhis.getZ()) - this.erdradius)) > this.epsilon));
     	
-    	//TODO eventuell ein paar weitere
+    	 //ich glaube diese assertion und assert auf erdradius nehmen sich nicht wirklich viel^^
+    	 //aber das ich ein paar assertions hab ichs mal eingefuegt
+    	 //mathematiker bzw. physiker koennen dazu sicherlich mehr sagen
+    	boolean throwing=false;
+    	 try
+    	 {
+    	    if((Math.abs(this.getDistance(this))> this.epsilon))
+    	    {
+    		throwing=true;    		
+    	    }
+    	 }
+    	 catch(Exception e)
+    	 {
+    	    //falls in getDistance auch ne Exception fliegen sollte
+    	     throw new RuntimeException("Klasseninvariante verletzt",e);
+    	 }
+    	
+    	if(throwing)
+    	{
+    	    throw new RuntimeException("Klasseninvariante verletzt");
+    	}
     	
     	
     }
