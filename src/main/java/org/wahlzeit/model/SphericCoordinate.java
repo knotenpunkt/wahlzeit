@@ -1,9 +1,19 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Pattern;
+
 /**
  * @author robin
  *
  */
+
+
+@Pattern(
+		name = "Visitor", 
+		participants = { 
+				"ConcreteElement" //Teilnehmer=this, siehe accept-Methode
+		}
+)
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private double latitude = 0;
@@ -18,6 +28,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @methodtype constructor
 	 * 
 	 */
+
 	public SphericCoordinate(double varLat, double varLong) {
 		//this.setLatitude(varLat);
 		//this.setLongitude(varLong);	
@@ -187,6 +198,16 @@ public class SphericCoordinate extends AbstractCoordinate {
 		//aber das prinzip das ich hier anwende wird -denke - ich daraus klar!
 	}
 	
+	
+	
+	@Override
+	public SphericCoordinate accept(
+			DistanceCalculatorVisitor<SphericCoordinate, Void> v,
+			Void ein_weiterer_parameter) {
+		return v.visit(this, null);
+	}
+
+	
 		
 	
     /********Alter bzw. unrelevanter Code**********/
@@ -273,11 +294,5 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return c.asSphericCoordinate().equals(this);
 	}
 
-	@Override
-	public SphericCoordinate accept(
-			DistanceCalculatorVisitor<SphericCoordinate, Void> v,
-			Void ein_weiterer_parameter) {
-		return v.visit(this, null);
-	}
 
 }

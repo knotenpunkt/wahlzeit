@@ -1,5 +1,14 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Pattern;
+
+
+@Pattern(
+		name = "Visitor", 
+		participants = { 
+				"Visitor" //Teilnehmer=this, siehe visit-Methoden
+		}
+)
 public interface DistanceCalculatorVisitor<T , K> {
 
     /**

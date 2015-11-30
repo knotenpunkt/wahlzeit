@@ -1,5 +1,15 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Pattern;
+
+
+
+@Pattern(
+		name = "Visitor", 
+		participants = { 
+				"ConcreteVisitor" 
+		}
+)
 public class DistanceCalculatorService implements DistanceCalculatorVisitor<SphericCoordinate, Void> {
     private Double result = null;
 

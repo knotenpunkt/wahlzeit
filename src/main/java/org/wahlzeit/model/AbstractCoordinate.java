@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Pattern;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Subclass;
 
@@ -9,6 +11,12 @@ import com.googlecode.objectify.annotation.Subclass;
  */
 
 // @Subclass(name = "AbstractCoordinate")
+@Pattern(
+		name = "Visitor", 
+		participants = { 
+				"Element" //gibt das Visitable-Interface weiter
+		}
+)
 abstract class AbstractCoordinate implements Coordinate {
 
     protected final int erdradius = 6378;

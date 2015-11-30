@@ -1,5 +1,7 @@
 package org.wahlzeit.model.persistence;
 
+import org.wahlzeit.Pattern;
+import org.wahlzeit.Pattern2;
 import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.services.LogBuilder;
 
@@ -13,6 +15,21 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+
+@Pattern(
+		name = "Strategy",
+		participants = { 
+				"Strategy" //Teilnehmer=this, abstrakte Schnittstelle der Strategie nach aussen hin
+		}
+)
+
+@Pattern2(
+		name = "Singleton", //konfigurierbarer Singelton
+		participants = { 
+				"Singleton" //Teilnehmer = this  
+		}
+)
+
 public abstract class ImageStorage {
 
 	private static final Logger log = Logger.getLogger(ImageStorage.class.getName());

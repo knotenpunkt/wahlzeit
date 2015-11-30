@@ -26,6 +26,8 @@ import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+
+import org.wahlzeit.Pattern;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
 
@@ -39,6 +41,17 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+
+
+@Pattern(
+		name = "Strategy", //Strategiefamilie... ist hier definitiv kein Adapter! 
+		participants = { 
+				"ConcreteStrategy", //Teilnehmer=this, Methoden stellen jeweils eine Strategie dar, die aber nur im Zusammenspiel Sinn ergeben
+				"Strategy" //Teilnehmer=extends ImageStorage
+		}
+)
+
+
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());

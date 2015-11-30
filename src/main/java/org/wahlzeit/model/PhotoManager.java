@@ -23,6 +23,9 @@ package org.wahlzeit.model;
 import com.google.appengine.api.images.Image;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
+
+import org.wahlzeit.Pattern;
+import org.wahlzeit.Pattern2;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.ObjectManager;
@@ -43,6 +46,26 @@ import java.util.logging.Logger;
 /**
  * A photo manager provides access to and manages photos.
  */
+
+
+
+
+
+@Pattern(
+		name = "Strategy", 
+		participants = { 
+				"Client",//bspw. wird die eine Strategie in der Methode loadScaledImages verwendet 
+		}
+)
+
+
+@Pattern2(
+		name = "Singleton", 
+		participants = { 
+				"Client"//holt sich bspw. in der Methode loadScaledImages das Singletonobjekt
+		}
+)
+
 public class PhotoManager extends ObjectManager {
 
 	/**
@@ -190,16 +213,21 @@ public class PhotoManager extends ObjectManager {
 	 *
 	 * Loads all scaled Images of this Photo from Google Cloud Storage
 	 */
+	
+	/**
+	 * 
+	 * Markiert fuer github: loadScaledImages
+	 */
 	protected void loadScaledImages(Photo photo) {
 		String photoIdAsString = photo.getId().asString();
-		ImageStorage imageStorage = ImageStorage.getInstance();
+		ImageStorage imageStorage =  ImageStorage.getInstance();
 
 		for (PhotoSize photoSize : PhotoSize.values()) {
 			log.config(LogBuilder.createSystemMessage().
 					addAction("loading image").
 					addParameter("image size", photoSize.asString()).
 					addParameter("photo ID", photoIdAsString).toString());
-			if (imageStorage.doesImageExist(photoIdAsString, photoSize.asInt())) {
+			if (imageStorage.doesImageExist(photoIdAsString,  photoSize.asInt())) {
 				try {
 					Serializable rawImage = imageStorage.readImage(photoIdAsString, photoSize.asInt());
 					if (rawImage != null && rawImage instanceof Image) {

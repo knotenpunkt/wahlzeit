@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Pattern;
+
 import com.googlecode.objectify.annotation.Entity;
 
 /**
@@ -9,7 +11,12 @@ import com.googlecode.objectify.annotation.Entity;
  */
 
 
-
+@Pattern(
+		name = "Visitor", 
+		participants = { 
+				"ConcreteElement" //Teilnehmer=this, siehe accept-Methode 
+		}
+)
 @Entity
 public class CartesianCoordinate extends AbstractCoordinate {
 
@@ -152,6 +159,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		
 	    
 	}
+	
+	
+	@Override
+	public SphericCoordinate accept(
+			DistanceCalculatorVisitor<SphericCoordinate, Void> v,
+			Void ein_weiterer_parameter) {
+		return v.visit(this, null);
+	}
 
 
 	
@@ -290,11 +305,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return true;
 	}
 
-	@Override
-	public SphericCoordinate accept(
-			DistanceCalculatorVisitor<SphericCoordinate, Void> v,
-			Void ein_weiterer_parameter) {
-		return v.visit(this, null);
-	}
+
 
 }

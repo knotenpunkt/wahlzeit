@@ -30,6 +30,8 @@ import com.google.appengine.tools.cloudstorage.GcsOutputChannel;
 import com.google.appengine.tools.cloudstorage.GcsService;
 import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
 import com.google.appengine.tools.cloudstorage.RetryParams;
+
+import org.wahlzeit.Pattern;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.SysConfig;
 
@@ -47,6 +49,16 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+
+
+@Pattern(
+		name = "Strategy", //Strategiefamilie... ist hier definitiv kein Adapter! 
+		participants = { 
+				"ConcreteStrategy", //Teilnehmer=this, Methoden stellen jeweils eine Strategie dar, die aber nur im Zusammenspiel Sinn ergeben
+				"Strategy" //Teilnehmer=extends ImageStorage
+		}
+)
+
 public class GcsAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(GcsAdapter.class.getName());

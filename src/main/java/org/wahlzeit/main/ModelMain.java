@@ -20,6 +20,8 @@
 
 package org.wahlzeit.main;
 
+import org.wahlzeit.Pattern;
+import org.wahlzeit.Pattern2;
 import org.wahlzeit.model.GlobalsManager;
 import org.wahlzeit.model.PhotoCaseManager;
 import org.wahlzeit.model.PhotoFactory;
@@ -38,6 +40,22 @@ import java.util.logging.Logger;
 /**
  * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.
  */
+
+
+@Pattern(
+		name = "Strategy", 
+		participants = { 
+				"Client",//via setInstance wird eine konkrete StrategieFamilie ausgewaehlt, hier der DatastoreAdapter
+		}
+)
+
+@Pattern2(
+		name = "Singleton", 
+		participants = { 
+				"Client"//konfiguriert hier via setInstance das Singleton
+		}
+)
+
 public abstract class ModelMain extends AbstractMain {
 
 	private static final Logger log = Logger.getLogger(ModelMain.class.getName());

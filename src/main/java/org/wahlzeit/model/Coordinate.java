@@ -2,8 +2,16 @@ package org.wahlzeit.model;
 
 import java.io.Serializable;
 
+import org.wahlzeit.Pattern;
+
 import com.googlecode.objectify.annotation.Entity;
 
+@Pattern(
+		name = "Visitor", 
+		participants = { 
+				"Element" //gibt das Visitable-Interface weiter
+		}
+)
 public interface Coordinate extends Serializable, Visitable<SphericCoordinate, Void, SphericCoordinate, Void> {
 
     /**
