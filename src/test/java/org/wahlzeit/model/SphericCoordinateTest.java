@@ -36,18 +36,18 @@ public class SphericCoordinateTest {
     public void initCoordinate() {
 	c.clear();
 	for (int i = 0; i < 5; i++) {
-	    c.add(new SphericCoordinate(i * 0.3, i * 0.7));// 0-4
+	    c.add(SphericCoordinate.getInstanceOfMultiton(i * 0.3, i * 0.7));// 0-4
 	}
 
-	c.add(new NullCoordinate());// 5
-	c.add(new NullCoordinate());// 6
+	c.add(NullCoordinate.getInstance());// 5
+	c.add(NullCoordinate.getInstance());// 6
 
-	c.add(new SphericCoordinate(0.10, 0.20));// 7
-	c.add(new SphericCoordinate(0, 0.30));// 8
-	c.add(new SphericCoordinate(0.30, 0));// 9
+	c.add(SphericCoordinate.getInstanceOfMultiton(0.10, 0.20));// 7
+	c.add(SphericCoordinate.getInstanceOfMultiton(0, 0.30));// 8
+	c.add(SphericCoordinate.getInstanceOfMultiton(0.30, 0));// 9
 
-	c.add(new SphericCoordinate(0.67877, 0.778723));// 10
-	c.add(new SphericCoordinate(0.5, 0.5));// 11
+	c.add(SphericCoordinate.getInstanceOfMultiton(0.67877, 0.778723));// 10
+	c.add(SphericCoordinate.getInstanceOfMultiton(0.5, 0.5));// 11
     }
 
     /**
@@ -106,30 +106,32 @@ public class SphericCoordinateTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMethodSetLatitude() {
+    public void testMethodSetLatitudeAndLongitude1() {
 
-	c.get(7).asSphericCoordinate().setLatitude(-10);
+	c.get(7).asSphericCoordinate().setLatitudeAndLongitude(-10, 10);
 
     }
+
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMethodsetLongitude() {
+    public void testMethodSetLatitudeAndLongitude2() {
 
-	c.get(7).asSphericCoordinate().setLongitude(-5);
+	c.get(7).asSphericCoordinate().setLatitudeAndLongitude(10, -10);
 
     }
+   
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalConstructorAccess1() {
 
-	new SphericCoordinate(-1, 0.10);
+    	SphericCoordinate.getInstanceOfMultiton(-1, 0.10);
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalConstructorAccess2() {
 
-	new SphericCoordinate(0.10, -1);
+    	SphericCoordinate.getInstanceOfMultiton(0.10, -1);
 
     }
 

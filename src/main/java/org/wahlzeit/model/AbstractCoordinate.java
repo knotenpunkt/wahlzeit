@@ -144,6 +144,15 @@ abstract class AbstractCoordinate implements Coordinate {
     /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
     
 
     /*

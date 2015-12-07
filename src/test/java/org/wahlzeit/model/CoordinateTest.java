@@ -33,12 +33,13 @@ public class CoordinateTest {
 
     @Before
     public void initCoordinate() {
-	this.c1 = new SphericCoordinate(Math.toRadians(49.55), Math.toRadians(11.0036));// (22.0,
+	this.c1 = SphericCoordinate.getInstanceOfMultiton(Math.toRadians(49.55), Math.toRadians(11.0036));// (22.0,
 											// 23.0);
-	this.c2 = new CartesianCoordinate(3133.482676255299, 4880.110125072319, -2654.1845234976745);
-	this.c3 = new SphericCoordinate(Math.toRadians(70.0), Math.toRadians(80.0));
-	this.c4 = new CartesianCoordinate(4509.9270504078, 4509.9270504078, 3.905398642480909E-13);
-	this.c5 = new NullCoordinate();
+	this.c2 = CartesianCoordinate.getInstanceOfMultiton(3133.482676255299, 4880.110125072319, -2654.1845234976745);
+	this.c3 = SphericCoordinate.getInstanceOfMultiton(Math.toRadians(70.0), Math.toRadians(80.0));
+	this.c4 = CartesianCoordinate.getInstanceOfMultiton(4509.9270504078, 4509.9270504078, 3.905398642480909E-13);
+	this.c5 = NullCoordinate.getInstance();
+	
     }
 
     /**
@@ -216,24 +217,24 @@ public class CoordinateTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testIllegalContructorParameter() {
-	new CartesianCoordinate(5, 9, 15);
+    	CartesianCoordinate.getInstanceOfMultiton(5, 9, 15);
     }
     
  
     
     @Test(expected = AssertionError.class)
     public void testIllegalClassInvariants1() {
-	new CartesianCoordinate(Double.NaN, 9, 15);
+    	CartesianCoordinate.getInstanceOfMultiton(Double.NaN, 9, 15);
     }
     
     @Test(expected = AssertionError.class)
     public void testIllegalClassInvariants2() {
-	new CartesianCoordinate(0, Double.NaN, 15);
+    	CartesianCoordinate.getInstanceOfMultiton(0, Double.NaN, 15);
     }
     
     @Test(expected = AssertionError.class)
     public void testIllegalClassInvariants3() {
-	new CartesianCoordinate(0, 9, Double.NaN);
+    	CartesianCoordinate.getInstanceOfMultiton(0, 9, Double.NaN);
     }
     
     

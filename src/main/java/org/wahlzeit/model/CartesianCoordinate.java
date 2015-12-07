@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import java.util.Hashtable;
+
 import org.wahlzeit.Pattern;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -23,6 +25,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	private double x = 0;
 	private double y = 0;
 	private double z = 0;
+	
+	private static Hashtable<String, CartesianCoordinate> instances=new Hashtable<String, CartesianCoordinate>();
 
 	/**
 	 * 
@@ -32,8 +36,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype constructor
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
-		this.setCartesianCoordinateData(x, y, z);
+	private CartesianCoordinate(double x, double y, double z) {
+		this.setCartesianCoordinateDataIntern(x, y, z);
 		
 		this.assertClassInvariants(); 
 		// kommt zwar damit redundant 
@@ -43,6 +47,34 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		
 		//naja man kann drueber streiten, pre und post Cond habe ich hier jetzt auch nicht nochmal redundant verwendet
 	}
+	
+	
+	public static CartesianCoordinate getInstanceOfMultiton(double x, double y, double z)
+	{
+		
+		String key="x"+x+"y"+y+"z"+z;
+		
+		
+		 CartesianCoordinate result = instances.get(key);
+		 
+		 if (result == null)
+		 {
+			 synchronized (CartesianCoordinate.class)
+			 {
+				 result = instances.get(key);
+				 
+				 if (result == null)
+				 {
+					 result = new CartesianCoordinate(x, y, z);
+					 instances.put(key, result);
+				 }
+			 };
+		 }
+		 
+		 return result;
+	
+	}
+	
 	
 
 
@@ -54,48 +86,80 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * 
 	 * @methodtype set
 	 */
-	public void setCartesianCoordinateData(double x, double y, double z) {
-
-	    	assert !Double.isNaN(x);
-	    	assert !Double.isNaN(y);
-	    	assert !Double.isNaN(z);
-	    	
+	public CartesianCoordinate setCartesianCoordinateData(double x, double y, double z) {
 		
-		if ((Math.abs(Math.sqrt(x * x + y * y + z * z) - this.erdradius)) > this.epsilon) {
+		
+		assert !Double.isNaN(x);
+    	assert !Double.isNaN(y);
+    	assert !Double.isNaN(z);
+    	
+    	if ((Math.abs(Math.sqrt(x * x + y * y + z * z) - this.erdradius)) > this.epsilon) {
 			throw new IllegalArgumentException(
 					"Die Kartesischen Koordinaten ergeben nicht den Erdradius!");
 			// ist auch ein assert und bereits vorhanden, bloss mit
 			// spezifizierterem Typ
 		}
-
-		this.x = x;
-		this.y = y;
-		this.z = z;
+    	
+		
+		CartesianCoordinate result=getInstanceOfMultiton(x, y, z);
 		
 		
-		//triviale faelle, siehe zur begruendung setter methoden in Speric-Coodrinate
-		assert this.x==x;
-		assert this.y==y;
-		assert this.z==z;
-
-		this.assertClassInvariants();
+		assert result.x==x;
+		assert result.y==y;
+		assert result.z==z;
+		
+		result.assertClassInvariants(); 
 		
 		
+		//wird zwar schon ueber konstruktor gecheckt, aber ich habe hier einfach meine alter setter semantik uebernommen,
+		//kann ja sein dass mal in einem setter mehr oder weniger erlaubt ist, wie es im konstruktor der fall sein sollte
 		
-		/*
-		 * //folgendes sehe ich ziemlich kritisch, da ich hier diese Klasse noch
-		 * staerker an die Spherische Klasse binde! //normalerweise will man das
-		 * ganze in einen eigenen Service auslagern! //Ausserdem benoete ich
-		 * eine Ausnahmeimplementierung, falls die andere Klasse genau das
-		 * gleiche vorhat //also ein Art Endlos-Rekursions-Brecher try {
-		 * this.asSphericCoordinate(Rekursions-Breaker=TRUE).
-		 * asCartesianCoordinate(Rekursions-Breaker=TRUE); }
-		 * catch(IllegalArgumentException e) { throw new
-		 * IllegalArgumentException(
-		 * "Die Kartesischen muessen wohl falsch sein, da Sie sich nicht in Spherische konvertieren lassen und vice versa"
-		 * ); }
-		 */
+		return result;
+		
 	}
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * 
+	 * 
+	 * 	helper fuer Constructor
+	 * Dies wird einfach nur vom Konstruktor aufgerufen und sonst nicht, da sie sonst die inmutabilitaet zerstoeren wuerde
+	 * 
+	 */
+	private void setCartesianCoordinateDataIntern(double x, double y, double z) {
+
+    	assert !Double.isNaN(x);
+    	assert !Double.isNaN(y);
+    	assert !Double.isNaN(z);
+    	
+	
+	if ((Math.abs(Math.sqrt(x * x + y * y + z * z) - this.erdradius)) > this.epsilon) {
+		throw new IllegalArgumentException(
+				"Die Kartesischen Koordinaten ergeben nicht den Erdradius!");
+		// ist auch ein assert und bereits vorhanden, bloss mit
+		// spezifizierterem Typ
+	}
+
+	this.x = x;
+	this.y = y;
+	this.z = z;
+	
+	
+	//triviale faelle, siehe zur begruendung setter methoden in Speric-Coodrinate
+	assert this.x==x;
+	assert this.y==y;
+	assert this.z==z;
+
+	this.assertClassInvariants();
+	
+
+}
+	
+	
+	
 
 		
 	/**
@@ -167,9 +231,56 @@ public class CartesianCoordinate extends AbstractCoordinate {
 			Void ein_weiterer_parameter) {
 		return v.visit(this, null);
 	}
+	
+	
+	//Aehm folgendes macht irgendwie doch keinen Sinn, naja dann mach ichs wohl doch ueber Strings^^
+	/*
+	private class CartesianCoordinateKey
+	{
+		double x;
+		double y;
+		double z;
+		
+		private CartesianCoordinateKey(double x, double y, double z)
+		{
+			this.x=x;
+			this.y=y;
+			this.z=z;
+		}
+		
+		
+	}
+	*/
+	
+	
+	
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+
+		//return this ==obj;//geht so leider nicht, weil ich delta benoetige
+		return this.equalsOld(obj);
+
+	}
+	
+	
 
 
 	
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
+    /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
     /********Alter bzw. unrelevanter Code**********/
@@ -217,7 +328,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 				/ 2
 				- Math.atan(this.z
 						/ Math.sqrt(this.x * this.x + this.y * this.y));
-		return new SphericCoordinate(varLat, varLong);
+		//return new SphericCoordinate(varLat, varLong);
+		return SphericCoordinate.getInstanceOfMultiton(varLat, varLong);
 
 		/*
 		 * double varLat=Math.atan(this.y/this.x);//this.calcLongitude(); double
@@ -263,8 +375,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 
 
-	@Override
-	public int hashCode() {
+
+	public int hashCodeOld() {
 		final int prime = 31;
 		int result = 1;
 		long temp;
@@ -277,8 +389,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
+
+	public boolean equalsOld(Object obj) {
 
 		if (this == obj)
 			return true;
@@ -304,6 +416,61 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		 */
 		return true;
 	}
+	
+	
+
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * 
+	 * @methodtype set
+	 */
+	private void setCartesianCoordinateDataOld(double x, double y, double z) {
+
+	    	assert !Double.isNaN(x);
+	    	assert !Double.isNaN(y);
+	    	assert !Double.isNaN(z);
+	    	
+		
+		if ((Math.abs(Math.sqrt(x * x + y * y + z * z) - this.erdradius)) > this.epsilon) {
+			throw new IllegalArgumentException(
+					"Die Kartesischen Koordinaten ergeben nicht den Erdradius!");
+			// ist auch ein assert und bereits vorhanden, bloss mit
+			// spezifizierterem Typ
+		}
+
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		
+		
+		//triviale faelle, siehe zur begruendung setter methoden in Speric-Coodrinate
+		assert this.x==x;
+		assert this.y==y;
+		assert this.z==z;
+
+		this.assertClassInvariants();
+		
+		
+		
+		/*
+		 * //folgendes sehe ich ziemlich kritisch, da ich hier diese Klasse noch
+		 * staerker an die Spherische Klasse binde! //normalerweise will man das
+		 * ganze in einen eigenen Service auslagern! //Ausserdem benoete ich
+		 * eine Ausnahmeimplementierung, falls die andere Klasse genau das
+		 * gleiche vorhat //also ein Art Endlos-Rekursions-Brecher try {
+		 * this.asSphericCoordinate(Rekursions-Breaker=TRUE).
+		 * asCartesianCoordinate(Rekursions-Breaker=TRUE); }
+		 * catch(IllegalArgumentException e) { throw new
+		 * IllegalArgumentException(
+		 * "Die Kartesischen muessen wohl falsch sein, da Sie sich nicht in Spherische konvertieren lassen und vice versa"
+		 * ); }
+		 */
+	}
+	
+	
 
 
 

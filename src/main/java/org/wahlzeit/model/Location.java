@@ -40,7 +40,7 @@ public class Location implements Serializable{
      * @methodproperty primitive
      */
       public void setAbstrCoordinate(AbstractCoordinate abstrCoordinate) {
-  	this.abstrCoordinate = (abstrCoordinate != null) ? abstrCoordinate : new NullCoordinate();  	
+  	this.abstrCoordinate = (abstrCoordinate != null) ? abstrCoordinate : NullCoordinate.getInstance();  	
 
       }
     

@@ -1,10 +1,23 @@
 package org.wahlzeit.model;
 
+import java.util.Hashtable;
+
 import com.googlecode.objectify.annotation.Entity;
 
 @Entity
 public class NullCoordinate extends AbstractCoordinate {
 
+	private static NullCoordinate instance=new NullCoordinate();
+	
+	private NullCoordinate(){}
+	
+	public static NullCoordinate getInstance()
+	{
+		return instance;
+	}
+	
+	
+	
     @Override
     public double getDistanceHa06(Coordinate c) {
 	throw new CoordinateIsNullException();
