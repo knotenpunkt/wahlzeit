@@ -95,6 +95,9 @@ public class PhotoFactory {
 	 * Google Cloud storage.
 	 */
 	public Photo loadPhoto(PhotoId id) {
+		
+		
+		
 	   /* Photo result =
                 OfyService.ofy().load().type(Photo.class).ancestor(KeyFactory.createKey("Application", "Wahlzeit")).filter(Photo.ID, id).first().now();
         for (PhotoSize size : PhotoSize.values()) {
