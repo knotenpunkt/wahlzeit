@@ -1,6 +1,8 @@
 package org.wahlzeit.model;
 
-public class Haus {
+import org.wahlzeit.services.DataObject;
+
+public class Haus extends DataObject {
 
 	private HausType hausType;
 	private PhotoHaus photoHaus=null;//Back-Referenz zum Photo, falls Photo vorhanden
